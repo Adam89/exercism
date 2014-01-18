@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bob</title>
+  <script src="jquery-2.0.3.js"></script>
+  <script src="bob.js"></script>
+</head>
+<body>
+<h1>Fireside Chat with Bob</h1>
+  <input type="text" name="chat" id="bob-input">
+  <button id="bob-button-input">Say</button>
+  <div id="bob-responses">
+    Bob's reply!!!!
+  </div>
+  <script>
+  //find the damn button! DDD
+  var bobInputButton = $("#bob-button-input");
+  console.log(bobInputButton);
+
+  //listen for when user clicks on the button
+  bobInputButton.click(function(eventObject) {
+    // console.log("button has been clicked")
+    // console.log(eventObject);
+    eventObject.preventDefault();
+
+    //Find the input text field of our message we are going to send to bob
+    var inputField = $("#bob-input");
+    console.log(inputField);
+
+    var myMessageToBob = inputField.val();
+    console.log(myMessageToBob);
+
+    var teenager = new Bob();
+    var result = teenager.hey(myMessageToBob);
+
+    // console.log(result)
+
+    var outputField = $("#bob-responses");
+    var htmlResult = "<div>" + "my message:" + myMessageToBob +"</div>" + "<div>" + "Bob Response: " + result + " " + "</div>";
+    outputField.append(htmlResult);
+  });
+  </script>
+</body>
+</html>

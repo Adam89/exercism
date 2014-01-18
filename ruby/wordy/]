@@ -1,0 +1,21 @@
+class WordProblem
+  attr_reader :question
+
+  def initialize(math_question)
+    @question = math_question
+  end
+
+  def answer
+    #takes a string and parses it
+    digits = question.gsub(/[^\d\-]/, ' ')
+    #returns the digits in the order specified
+    first, second = digits.split(" ")
+    #returns the operator to perform on digits
+    operator = question[/plus/]
+    operators = { "plus" => "+", "minus": "-", "multiplied" }
+    #performs the math operation on the digits
+    expression = [first, operators[operator], second].join(" ")
+    eval(expression)
+  end
+
+end
