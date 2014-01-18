@@ -57,21 +57,18 @@ class TriangleTest < MiniTest::Test
   end
 
   def test_triangles_violating_triangle_inequality_are_illegal
-    skip
     assert_raises(TriangleError) do
       Triangle.new(1, 1, 3).kind
     end
   end
 
   def test_triangles_violating_triangle_inequality_are_illegal_2
-    skip
     assert_raises(TriangleError) do
       Triangle.new(2, 4, 2).kind
     end
   end
 
   def test_triangles_violating_triangle_inequality_are_illegal_3
-    skip
     assert_raises(TriangleError) do
       Triangle.new(7, 3, 2).kind
     end

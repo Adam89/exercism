@@ -1,4 +1,4 @@
-
+require "pry"
 class TriangleError < StandardError; end
 
 class Triangle
@@ -10,8 +10,15 @@ class Triangle
     illegal
   end
 
+  def inequality
+    copy = @sides.dup
+    max = copy.max
+    copy.delete_at(copy.find_index(max))
+    max >= copy.inject(:+)
+  end
+
   def illegal
-    if @sides.any? {|side| side <= 0}
+    if @sides.any? {|side| side <= 0} || inequality
       raise TriangleError.new
     end
   end
