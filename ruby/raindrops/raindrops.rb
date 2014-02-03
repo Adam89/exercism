@@ -1,16 +1,26 @@
 class Raindrops
   def convert(number)
-    rain_code = {3 =>  "Pling",5 => "Plang",7 => "Plong"}
-    rain_speech = []
-    rain_code.keys.each do |prime_factor|
-    rain_speech << rain_code[prime_factor] if number % prime_factor == 0
+    rain_speak = []
+
+    prime_factors_speak.keys.each do |prime_factor|
+     if number % prime_factor == 0
+      rain_speak << prime_factors_speak[prime_factor]
+     end
     end
 
-    unless rain_speech.empty?
-      rain_speech.join
-    else
-      number.to_s
-    end
-
+    output(rain_speak, number)
   end
+
+  def prime_factors_speak
+    {3 =>  "Pling",5 => "Plang",7 => "Plong"}
+  end
+
+  def output(speak, number)
+    if speak.empty?
+      number.to_s
+    else
+      speak.join
+    end
+  end
+
 end
