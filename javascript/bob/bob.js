@@ -1,7 +1,7 @@
 Bob = function () {
   this.hey = function(sentence) {
-    if (sentence.length === 0) {
-      return "Fine be that way!";
+    if (!/\S/.test(sentence)) {
+      return "Fine. Be that way!";
     }
     else if (/^[^a-z]*$/i.test(sentence)) {
       return "Whatever.";
@@ -20,3 +20,5 @@ Bob = function () {
     }
   };
 };
+
+module.exports = Bob
