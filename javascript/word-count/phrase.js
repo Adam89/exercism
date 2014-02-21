@@ -1,16 +1,15 @@
 Phrase = function () {
-  this.word_count = function(word) {
-    // var i = 0;
-    // return {word: i+=1};
-    var words = word.split(" ");
+  this.word_count = function(words) {
     var result = {};
-    for(var i = 0;  i < words.length; i++ ) {
-      if (result[words[i]] === undefined){
-        result[words[i]] = 1;
+    var all_words = words.split(" ");
+
+    for(var i = 0; i < all_words.length; i++) {
+      if (result.hasOwnProperty(all_words[i])) {
+        result[all_words[i]] += 1;
       } else {
-        result[words[i]] += 1;
+        result[all_words[i]] = 1;
       }
-    };
+    }
     return result;
-  };
+  }
 };

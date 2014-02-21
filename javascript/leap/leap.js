@@ -7,6 +7,7 @@ var isLeapYear = function(year) {
   if (calculateDivision(400)) {
     return true;
   }
+
   else if (calculateDivision(100)) {
     return false;
   }
