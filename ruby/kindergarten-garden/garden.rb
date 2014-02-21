@@ -26,13 +26,11 @@ class Garden
     @students = students
 
     @students.sort_by(&:to_s).each.with_index do |person, index|
-      instance_eval(<<-RUBY, __FILE__, __LINE__ + 1)
-        def #{person.downcase}
-          @diagram.split("\n").map do |line|
-            line[#{index*2},2].each_char.map {|letter| MAPPINGS[letter]}
-          end.flatten
-        end
-       RUBY
+      self.singleton_class.send(:define_method, person.downcase) do
+        @diagram.split("\n").map do |line|
+          line[index*2,2].each_char.map {|letter| MAPPINGS[letter]}
+        end.flatten
+      end
     end
 
   end
