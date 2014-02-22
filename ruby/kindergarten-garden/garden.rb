@@ -1,4 +1,6 @@
 class Garden
+  attr_reader :diagram, :students
+
   DEFAULT_STUDENTS = [
     :alice, 
     :bob, 
@@ -13,7 +15,6 @@ class Garden
     :kincaid,
     :larry,
   ]
-
   MAPPINGS = {
     "R" => :radishes,
     "C" => :clover,
@@ -24,15 +25,20 @@ class Garden
   def initialize(diagram, students=DEFAULT_STUDENTS)
     @diagram = diagram
     @students = students
+  end
 
-    @students.sort_by(&:to_s).each.with_index do |person, index|
-      self.singleton_class.send(:define_method, person.downcase) do
-        @diagram.split("\n").map do |line|
-          line[index*2,2].each_char.map {|letter| MAPPINGS[letter]}
-        end.flatten
-      end
+  def method_missing(name, *args, &block)
+    all_students = @students.sort_by(&:to_s).map(&:downcase).map(&:to_sym)
+    index = all_students.index(name)
+    lines = diagram.split("\n")
+
+    if index == -1
+      super(name, *args, &block)
+    else
+      lines.map do |line|
+        line[index*2,2].each_char.map {|letter| MAPPINGS[letter]}
+      end.flatten
     end
-
   end
 
 end
