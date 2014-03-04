@@ -1,10 +1,8 @@
-require 'minitest'
 require 'minitest/autorun'
-require 'minitest/emoji'
 require "pry"
 require_relative 'word_problem'
 
-class WordProblemTest < MiniTest::Test
+class WordProblemTest < MiniTest::Unit::TestCase
   def test_add_1
     assert_equal 2, WordProblem.new('What is 1 plus 1?').answer
   end
@@ -55,31 +53,26 @@ class WordProblemTest < MiniTest::Test
 
   def test_subtract_then_add
     question = 'What is 17 minus 6 plus 3?'
-    binding.pry
     assert_equal 14, WordProblem.new(question).answer
   end
 
   def test_add_then_subtract
-    skip
     question = 'What is 1 plus 5 minus -2?'
     assert_equal 8, WordProblem.new(question).answer
   end
 
   def test_add_then_multiply
-    skip
     question = 'What is -3 plus 7 multiplied by -2?'
     assert_equal(-8, WordProblem.new(question).answer)
   end
 
   def test_too_advanced
-    skip
     assert_raises ArgumentError do
       WordProblem.new('What is 53 cubed?').answer
     end
   end
 
   def test_irrelevant
-    skip
     assert_raises ArgumentError do
       WordProblem.new('Who is the president of the United States?').answer
     end
