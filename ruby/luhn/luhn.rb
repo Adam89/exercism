@@ -41,7 +41,7 @@ class Luhn
 
 
   def double_every_second_digit(reverse_numbers)
-    numbers = reverse_numbers.map.with_index do |number, index|
+   reverse_numbers.map.with_index do |number, index|
       if index % 2 == 0
         number.to_i
       else
@@ -51,8 +51,7 @@ class Luhn
           number.to_i * 2
         end
       end
-    end
-    numbers.reverse
+    end.reverse
   end
 
 end
