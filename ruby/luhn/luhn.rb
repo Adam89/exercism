@@ -5,9 +5,7 @@ class Luhn
   end
 
   def addends
-    reverse_numbers = account_number.reverse
-
-    double_every_second_digit(reverse_numbers)
+    double_every_second_digit(account_number)
   end
 
   def checksum
@@ -28,6 +26,7 @@ class Luhn
 
   def self.add_check_digit(number)
     range_of_valid_numbers = (0..9)
+
     unless Luhn.new(number).valid? 
       number = number.to_s 
       range_of_valid_numbers.each do |num|
@@ -40,16 +39,16 @@ class Luhn
   end
 
 
-  def double_every_second_digit(reverse_numbers)
-   reverse_numbers.map.with_index do |number, index|
+  def double_every_second_digit(numbers)
+    reverse_numbers = numbers.reverse
+
+    reverse_numbers.map.with_index do |number, index|
       if index % 2 == 0
         number.to_i
+      elsif number.to_i * 2 > 9 && index % 2 != 0
+        (number.to_i * 2) - 9
       else
-        if number.to_i * 2 >= 10
-          (number.to_i * 2) - 9
-        else
-          number.to_i * 2
-        end
+        number.to_i * 2
       end
     end.reverse
   end
