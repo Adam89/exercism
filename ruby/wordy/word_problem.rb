@@ -3,25 +3,15 @@ class WordProblem
   def initialize(math_question)
     @question = math_question
     @digits = all_digits.split(" ").count
-    too_complex
-  end
 
+    raise ArgumentError if too_complex?
+  end
 
   def answer
     if digits == 2
-      first, second = all_digits.split(" ")
+      expression = two_digit_calculation 
     elsif digits == 3
-      first, second, third = all_digits.split(" ")
-    end
-
-
-    expression_for_three = ["(",first, math_operators[operator_as_word.first], second, ")", math_operators[operator_as_word[1]], third].join(" ")
-    expression_for_two = [first, math_operators[operator_as_word.first], second].join(" ")
-
-    if digits == 2
-      expression = expression_for_two 
-    elsif digits == 3
-      expression = expression_for_three
+      expression = three_digit_calculation 
     end
 
     eval(expression)
@@ -30,6 +20,21 @@ class WordProblem
   private 
 
   attr_reader :question, :digits
+
+  def two_digit_calculation
+    first, second = all_digits.split(" ")
+    operator = math_operators[operator_as_word.first]
+    [first, operator , second].join(" ")
+  end
+
+  def three_digit_calculation
+    first, second, third = all_digits.split(" ")
+
+    first_operator = math_operators[operator_as_word.first]
+    second_operator = math_operators[operator_as_word[1]]
+
+    ["(",first, first_operator, second, ")", second_operator , third].join(" ")
+  end
 
   def all_digits
     question.gsub(/[^\d\-]/, ' ')
@@ -44,8 +49,8 @@ class WordProblem
     }
   end
 
-  def too_complex
-    raise ArgumentError if digits < 2
+  def too_complex?
+    digits < 2
   end
 
   def operator_as_word
