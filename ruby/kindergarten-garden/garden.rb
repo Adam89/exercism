@@ -32,13 +32,13 @@ class Garden
     index = all_students.index(name)
     lines = diagram.split("\n")
 
-    if index == -1
-      super(name, *args, &block)
-    else
-      lines.map do |line|
-        line[index*2,2].each_char.map {|letter| MAPPINGS[letter]}
-      end.flatten
-    end
+    lines.map do |line|
+      line[index*2,2].each_char.map {|letter| MAPPINGS[letter]}
+    end.flatten
   end
 
+  def respond_to_missing?(name, include_all)
+    respond_to?(name, include_all)
+  end
 end
+

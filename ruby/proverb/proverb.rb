@@ -1,21 +1,35 @@
 class Proverb
 
-  attr_reader :nouns
-  def initialize(*nouns)
+  def initialize(*nouns, qualifier:  nil)
     @nouns = nouns
+    @qualifier = qualifier
   end
 
   def to_s
-    @nouns.map.with_index do |noun, index|
-      first_part_of_chorus(noun) + second_part_of_chorus(@nouns[index+1])
-    end.join + " And all for the want of a #{@nouns.first}."
+    repeat_chorus
   end
 
-  def first_part_of_chorus(word)
-    "For want of a #{word}"
+  private 
+
+  attr_reader :nouns, :qualifier
+
+  def repeat_chorus
+    repetitions = nouns.length - 1
+    chorus = []
+
+    repetitions.times do |i|
+       chorus << "For want of a #{nouns[i]} the #{nouns[i + 1]} was lost."
+    end
+
+    chorus.join("\n") + final_sequence
   end
 
-  def second_part_of_chorus(word)
-    " the #{word} was lost.\n"
+  def final_sequence
+    if qualifier
+      "\nAnd all for the want of a #{qualifier} #{nouns.first}." 
+    else
+      "\nAnd all for the want of a #{nouns.first}." 
+    end
   end
+
 end

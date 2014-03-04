@@ -1,9 +1,7 @@
-gem 'minitest'
 require 'minitest/autorun'
-require "minitest/pride"
 require_relative 'anagram'
 
-class AnagramTest < MiniTest::Test
+class AnagramTest < MiniTest::Unit::TestCase
 
   def test_no_matches
     detector = Anagram.new('diaper')
