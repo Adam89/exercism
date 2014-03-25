@@ -2,7 +2,7 @@ class SumOfMultiples
   attr_reader :factors
 
   def initialize(*factors)
-    @factors = factors 
+    @factors = factors
   end
 
   def to(input)
