@@ -14,7 +14,7 @@ class SumOfMultiples
 
   end
 
-  def self.to(input, factors=[3,5])
+  def self.to(input, factors = [3, 5])
     new(*factors).to(input)
   end
 
