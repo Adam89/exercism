@@ -1,6 +1,4 @@
-require 'minitest'
 require 'minitest/autorun'
-require 'minitest/emoji'
 
 begin
   require_relative 'bob'
@@ -15,7 +13,7 @@ rescue LoadError => e
   exit!
 end
 
-class TeenagerTest < MiniTest::Test
+class TeenagerTest < MiniTest::Unit::TestCase
   attr_reader :teenager
 
   def setup
@@ -27,34 +25,54 @@ class TeenagerTest < MiniTest::Test
   end
 
   def test_shouting
+    skip
     assert_equal 'Woah, chill out!', teenager.hey('WATCH OUT!')
   end
 
+  def test_shouting_gibberish
+    skip
+    gibberish = ('A'..'Z').to_a.shuffle[0,10].join
+    assert_equal 'Woah, chill out!', teenager.hey(gibberish)
+  end
+
   def test_asking_a_question
+    skip
     assert_equal 'Sure.', teenager.hey('Does this cryogenic chamber make me look fat?')
   end
 
   def test_asking_a_numeric_question
+    skip
     assert_equal 'Sure.', teenager.hey('You are, what, like 15?')
   end
 
+  def test_asking_gibberish
+    skip
+    gibberish = ('a'..'z').to_a.shuffle[0,10].join
+    assert_equal 'Sure.', teenager.hey("#{gibberish}?")
+  end
+
   def test_talking_forcefully
+    skip
     assert_equal 'Whatever.', teenager.hey("Let's go make out behind the gym!")
   end
 
   def test_using_acronyms_in_regular_speech
+    skip
     assert_equal 'Whatever.', teenager.hey("It's OK if you don't want to go to the DMV.")
   end
 
   def test_forceful_questions
+    skip
     assert_equal 'Woah, chill out!', teenager.hey('WHAT THE HELL WERE YOU THINKING?')
   end
 
   def test_shouting_numbers
+    skip
     assert_equal 'Woah, chill out!', teenager.hey('1, 2, 3 GO!')
   end
 
   def test_only_numbers
+    skip
     assert_equal 'Whatever.', teenager.hey('1, 2, 3')
   end
 
@@ -90,7 +108,8 @@ class TeenagerTest < MiniTest::Test
 
   def test_prolonged_silence
     skip
-    assert_equal 'Fine. Be that way!', teenager.hey('    ')
+    silence = " " * rand(1..10)
+    assert_equal 'Fine. Be that way!', teenager.hey(silence)
   end
 
   def test_on_multiple_line_questions
@@ -146,3 +165,5 @@ of the ruby/bob directory.
 
 Then run this test again (ruby bob_test.rb).  Make all the tests pass,
 and submit your solution (exercism submit bob.rb).
+
+More instructions are in README.md in this directory. Good luck!

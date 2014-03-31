@@ -1,39 +1,48 @@
-gem 'minitest'
 require 'minitest/autorun'
-require "minitest/pride"
-require 'minitest/emoji'
 require_relative 'hamming'
 
-class HammingTest < MiniTest::Test
-  def test_no_difference_between_empty_strands
-    assert_equal 0, Hamming.compute('', '')
-  end
-
+class HammingTest < MiniTest::Unit::TestCase
   def test_no_difference_between_identical_strands
-    assert_equal 0, Hamming.compute('GGACTGA','GGACTGA')
+    assert_equal 0, Hamming.compute('A', 'A')
   end
 
-  def test_complete_hamming_distance_in_small_strand
-    assert_equal 3, Hamming.compute('ACT', 'GGA')
+  def test_complete_hamming_distance_of_for_single_nucleotide_strand
+    skip
+    assert_equal 1, Hamming.compute('A','G')
   end
 
-  def test_hamming_distance_in_off_by_one_strand
-    assert_equal 9, Hamming.compute('GGACGGATTCTG', 'AGGACGGATTCT')
+  def test_complete_hamming_distance_of_for_small_strand
+    skip
+    assert_equal 2, Hamming.compute('AG','CT')
   end
 
-  def test_small_hamming_distance_in_middle_somewhere
+  def test_small_hamming_distance
+    skip
+    assert_equal 1, Hamming.compute('AT','CT')
+  end
+
+  def test_small_hamming_distance_in_longer_strand
+    skip
     assert_equal 1, Hamming.compute('GGACG', 'GGTCG')
   end
 
-  def test_larger_distance
-    assert_equal 2, Hamming.compute('ACCAGGG', 'ACTATGG')
+  def test_ignores_extra_length_on_first_strand_when_longer
+    skip
+    assert_equal 0, Hamming.compute('AAAG', 'AAA')
   end
 
   def test_ignores_extra_length_on_other_strand_when_longer
-    assert_equal 3, Hamming.compute('AAACTAGGGG', 'AGGCTAGCGGTAGGAC')
+    skip
+    assert_equal 0, Hamming.compute('AAA', 'AAAG')
   end
 
-  def test_ignores_extra_length_on_original_strand_when_longer
-    assert_equal 5, Hamming.compute('GACTACGGACAGGGTAGGGAAT', 'GACATCGCACACC')
+  def test_large_hamming_distance
+    skip
+    assert_equal 4, Hamming.compute('GATACA', 'GCATAA')
+  end
+
+  def test_hamming_distance_in_very_long_strand
+    skip
+    assert_equal 9, Hamming.compute('GGACGGATTCTG', 'AGGACGGATTCT')
   end
 end
