@@ -32,4 +32,16 @@ class MergeSortTest < MiniTest::Test
 
     assert_equal [1, 2, 3, 4, 5], merge.merge_sort
   end
+
+  def test_it_sorts_for_large_odd_length_unordered_list
+    merge = MergeSort.new([3, 2, 1, 5, 4,6 , 8])
+
+    assert_equal [1, 2, 3, 4, 5, 6, 8], merge.merge_sort
+  end
+
+  def test_it_sorts_for_largest_odd_length_unordered_list
+    merge = MergeSort.new([3, 2, 1, 5, 4, 6, 8, 11, 9, 10, 100, 43, 50])
+
+    assert_equal [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 43, 50, 100], merge.merge_sort
+  end
 end
