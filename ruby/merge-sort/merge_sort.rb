@@ -7,19 +7,8 @@ class MergeSort
     if @list.length < 2
       return @list
     else
-      right = MergeSort.new(@list[0..@list.length/2 - 1]).sort
-      left  = MergeSort.new(@list[@list.length/2..-1]).sort
-    end
-
-    merge(left, right)
-  end
-
-  def sort
-    if @list.length < 2
-      return @list
-    else
-      right = MergeSort.new(@list[0..@list.length/2 - 1]).sort
-      left  = MergeSort.new(@list[@list.length/2..-1]).sort
+      right = MergeSort.new(@list[0..@list.length/2 - 1]).merge_sort
+      left  = MergeSort.new(@list[@list.length/2..-1]).merge_sort
     end
 
     merge(left, right)
