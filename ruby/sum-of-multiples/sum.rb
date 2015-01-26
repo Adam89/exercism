@@ -1,21 +1,25 @@
 class SumOfMultiples
-  attr_reader :factors
+  def self.to(number, factors=[3,5])
+    new(*factors).to(number)
+  end
 
   def initialize(*factors)
-    @factors = factors 
+    @factors = factors
   end
 
-  def to(input)
-    range = (0...input)
-
-    range.select do |number|
-      number if factors.any? { |multiple| number % multiple == 0 }
+  def to(number)
+    (0...number).select do |num|
+      multiple_of_factors?(num)
     end.inject(:+)
-
   end
 
-  def self.to(input, factors=[3,5])
-    new(*factors).to(input)
-  end
+  private
 
+  attr_reader :factors
+
+  def multiple_of_factors?(number)
+    factors.any? do |factor|
+      number % factor == 0
+    end
+  end
 end

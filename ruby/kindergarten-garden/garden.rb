@@ -2,10 +2,10 @@ class Garden
   attr_reader :diagram, :students
 
   DEFAULT_STUDENTS = [
-    :alice, 
-    :bob, 
+    :alice,
+    :bob,
     :charlie,
-    :david, 
+    :david,
     :eve,
     :fred,
     :ginny,
@@ -28,7 +28,7 @@ class Garden
   end
 
   def method_missing(name, *args, &block)
-    all_students = @students.sort_by(&:to_s).map(&:downcase).map(&:to_sym)
+    all_students = students.sort_by(&:to_s).map(&:downcase).map(&:to_sym)
     index = all_students.index(name)
     lines = diagram.split("\n")
 

@@ -1,16 +1,20 @@
 class School
-  attr_reader :db
+  attr_reader :to_hash
 
   def initialize
-    @db = Hash.new([])
+    @to_hash = Hash.new([])
   end
 
   def add(name, grade)
-    @db[grade].empty? ? @db[grade] += [name] : @db[grade] << name
+    if to_hash[grade].empty?
+      @to_hash[grade] += [name]
+    else
+      @to_hash[grade] << name
+    end
   end
 
   def grade(year)
-   @db[year]
+   @to_hash[year].sort
   end
 
   def sort
@@ -19,11 +23,11 @@ class School
 
   def sort_names
     sort_grades.map do |k|
-      @db[k].sort
+      @to_hash[k].sort
     end
   end
 
   def sort_grades
-    @db.keys.sort
+    @to_hash.keys.sort
   end
 end

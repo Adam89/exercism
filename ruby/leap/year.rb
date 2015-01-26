@@ -1,24 +1,17 @@
 class Year
-  attr_reader :annum
-  def initialize(annum)
-    @annum = annum
+  def self.leap?(annum)
+    divisible_by_four?(annum) && !century?(annum) || exceptional_century?(annum)
   end
 
-  def leap?
-    divisible_by_four? && !century? || exceptional_century?
-  end
-
-  private
-
-  def century?
+  def self.century?(annum)
     annum % 100 == 0
   end
 
-  def divisible_by_four?
+  def self.divisible_by_four?(annum)
     annum % 4 == 0
   end
 
-  def exceptional_century?
+  def self.exceptional_century?(annum)
     annum % 400 == 0
   end
 end

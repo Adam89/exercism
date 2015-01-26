@@ -5,13 +5,15 @@ class Phrase
     @text = text
   end
 
-  def convert_text_to_words
-    text.downcase.split(/[^0-9a-z]+/)
+  def word_count
+    words.each_with_object(Hash.new(0)) do |word, word_counter|
+      word_counter[word] +=1
+    end
   end
 
-  def word_count
-    counts = Hash.new(0)
-    convert_text_to_words.each { |word| counts[word] +=1 }
-    counts
+  private
+
+  def words
+    text.downcase.split(/[^0-9a-z']+/)
   end
 end

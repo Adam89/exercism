@@ -1,7 +1,6 @@
 var Bob = function () {
   this.hey = function(sentence) {
 
-
     if (isSilent(sentence)) {
       return "Fine. Be that way!";
     }
@@ -26,22 +25,22 @@ var Bob = function () {
   };
 
     var isShouting = function(sentence) {
-      var shouting = (sentence[sentence.length - 1] === "?") && (sentence.toUpperCase() === sentence);  
+      var shouting = (sentence[sentence.length - 1] === "?") && (sentence.toUpperCase() === sentence);
       return shouting;
     };
 
     var isShoutingTwo = function(sentence) {
       var shouting = sentence.toUpperCase() === sentence;
-      return shouting; 
+      return shouting;
     };
 
     var isSilent = function(sentence) {
       var silent = !/\S/.test(sentence);
-      return silent; 
+      return silent;
     };
 
     var isQuestionTwo = function(sentence) {
-      var question = (sentence[sentence.length - 1] === "?");  
+      var question = (sentence[sentence.length - 1] === "?");
       return question;
     };
 

@@ -23,5 +23,4 @@ class DNA
       counted_nucleotides
     end
   end
-
 end

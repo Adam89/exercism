@@ -1,52 +1,47 @@
 class WordProblem
+  MATH_OPERATORS = {
+    "plus" => "+",
+    "minus" => "-",
+    "multiplied" => "*",
+    "divided" => "/",
+  }
 
   def initialize(math_question)
-    @question = math_question
+    @math_question = math_question
     @digits = all_digits.split(" ").count
 
     raise ArgumentError if too_complex?
   end
 
   def answer
-    if digits == 2
-      expression = two_digit_calculation 
+    expression = if digits == 2
+      two_digit_calculation
     elsif digits == 3
-      expression = three_digit_calculation 
+      three_digit_calculation
     end
 
     eval(expression)
   end
 
-  private 
+  private
 
-  attr_reader :question, :digits
+  attr_reader :math_question, :digits
 
   def two_digit_calculation
     first, second = all_digits.split(" ")
-    operator = math_operators[operator_as_word.first]
+    operator = MATH_OPERATORS[operator_as_word.first]
     [first, operator , second].join(" ")
   end
 
   def three_digit_calculation
     first, second, third = all_digits.split(" ")
-
-    first_operator = math_operators[operator_as_word.first]
-    second_operator = math_operators[operator_as_word[1]]
-
+    first_operator = MATH_OPERATORS[operator_as_word.first]
+    second_operator = MATH_OPERATORS[operator_as_word[1]]
     ["(",first, first_operator, second, ")", second_operator , third].join(" ")
   end
 
   def all_digits
-    question.gsub(/[^\d\-]/, ' ')
-  end
-
-  def math_operators
-    {
-      "plus" => "+",
-      "minus" => "-",
-      "multiplied" => "*",
-      "divided" => "/"
-    }
+    math_question.gsub(/[^\d\-]/, ' ')
   end
 
   def too_complex?
@@ -55,12 +50,8 @@ class WordProblem
 
   def operator_as_word
     operators = ["plus", "minus", "multiplied", "divided"]
-
-    question.split(" ").select do |word|
-      if operators.include? word
-        word
-      end
+    math_question.split(" ").select do |word|
+      operators.include?(word)
     end
   end
-
 end

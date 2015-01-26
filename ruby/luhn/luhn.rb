@@ -1,5 +1,4 @@
 class Luhn
-
   def initialize(account_number)
     @account_number =  account_number.to_s.split("")
   end
@@ -20,18 +19,18 @@ class Luhn
     add_check_digit(number)
   end
 
-  private 
+  private
 
   attr_reader :account_number
 
   def self.add_check_digit(number)
     range_of_valid_numbers = (0..9)
 
-    unless Luhn.new(number).valid? 
-      number = number.to_s 
+    unless new(number).valid?
+      number = number.to_s
       range_of_valid_numbers.each do |num|
         number << num.to_s
-        break if Luhn.new(number.to_i).valid?
+        break if new(number.to_i).valid?
         number.slice!(-1)
       end
     end
@@ -52,5 +51,4 @@ class Luhn
       end
     end.reverse
   end
-
 end

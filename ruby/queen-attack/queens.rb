@@ -1,44 +1,78 @@
-require 'pry'
 class Queens
-  # attr_reader :position
-  # def initialize(position = {})
-  #   if position.empty?
-  #       @position = position
-  #   elsif position[:black] == position[:white]
-  #     raise ArgumentError
-  #   else
-  #     @position = position
-  #   end
-  # end
+  attr_reader :white, :black
 
-  # def white
-  #   if position == {}
-  #     [0,3]
-  #   else
-  #     position[:white]
-  #   end
-  # end
+  def initialize(white: [0, 3], black: [7, 3], board: Board.new)
+    @white = white
+    @black = black
+    @board = board
+    cannot_occupy_same_space
+    cannot_be_positioned_outside_the_board
+  end
 
-  # def black
-  #   if position == {}
-  #     [7,3]
-  #   else
-  #     position[:black]
-  #   end
-  # end
-@places = {
-  "a1"=>" ","a2"=>" ","a3"=>" ","a4"=>" "
-  "b1"=>" ","b2"=>" ","b3"=>" ","b4"=>" "
-  "c1"=>" ","c2"=>" ","c3"=>" ","c4"=>" "
-}
-  @columns = [
-  ['a1','a2','a3','a4','a5','a6','a6','a7'],
-  ['b1','b2','b3','b4','b4','b5','b6','b7'],
-  ['c1','c2','c3','c4','c4','c5','c6','c7'],
-  ['a1','b1','c1','b4','b4','b5','b6','b7'],
-  ['a2','b2','c2','b4','b4','b5','b6','b7'],
-  ['a3','b3','c3','b4','b4','b5','b6','b7'],
-  ['a1','b2','c3','b4','b4','b5','b6','b7'],
-  ['c1','b2','a3','b4','b4','b5','b6','b7']
-]
+  def to_s
+    board.new_board
+
+    board.place_piece(white, 'W')
+    board.place_piece(black, 'B')
+
+    board.to_s
+  end
+
+  def attack?
+    same_row? || same_column? || diagonal?
+  end
+
+  private
+
+  attr_reader :board
+
+  def cannot_occupy_same_space
+    if black == white
+      raise ArgumentError.new
+    end
+  end
+
+  def cannot_be_positioned_outside_the_board
+    if (black + white).any? { |i| i > 7 }
+      raise ArgumentError.new
+    end
+  end
+
+  def same_row?
+    white.first == black.first
+  end
+
+  def same_column?
+    white.last == black.last
+  end
+
+  def diagonal?
+    x_value == y_value
+  end
+
+  def x_value
+    (white.first - black.first).abs
+  end
+
+  def y_value
+    (white.last - black.last).abs
+  end
+end
+
+class Board
+  attr_reader :new_board
+
+  def initialize
+    @new_board = Array.new(8) {Array.new(8,'O')}
+  end
+
+  def place_piece(position, name)
+    new_board[position.first][position.last] = name
+  end
+
+  def to_s
+    new_board.map do |rows|
+      rows.join(" ")
+    end.join("\n")
+  end
 end

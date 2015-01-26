@@ -1,5 +1,6 @@
 class Binary
   attr_reader :binary
+
   def initialize(binary)
   end
 
