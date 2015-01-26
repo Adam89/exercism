@@ -1,3 +1,4 @@
+require 'pry-byebug'
 class MergeSort
   def initialize(list)
     @list = list
@@ -23,11 +24,9 @@ class MergeSort
         result = result + right[i..-1]
         break
       elsif right[i] < left[j]
-        result << right[i]
-        i += 1
+        result << right.shift
       elsif left[i] < right[i]
-        result << left[j]
-        j += 1
+        result << left.shift
       end
     end
 
@@ -54,11 +53,9 @@ class MergeSort
         result = result + right[i..-1]
         break
       elsif right[i] < left[j]
-        result << right[i]
-        i += 1
+        result << right.shift
       elsif left[i] < right[i]
-        result << left[j]
-        j += 1
+        result << left.shift
       end
     end
 
