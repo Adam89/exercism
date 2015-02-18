@@ -43,12 +43,16 @@ var Luhn = function(number) {
 }
 
 Luhn.create = function(number){
-  return number;
+  new_number = number.toString() + '0';
+  luhn = new Luhn(+new_number);
+
+  if (luhn.checksum % 10 === 0) {
+    return +new_number;
+  } else {
+    new_number = number.toString() + (10 - luhn.checksum % 10).toString();
+    return +new_number;
+  }
+
 };
 
 module.exports = Luhn;
-    //if (accumulator % 10 !== 0) {
-    //  accumulator;
-    //} else {
-    //  return false;
-    //}

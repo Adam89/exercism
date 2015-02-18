@@ -47,12 +47,12 @@ describe('Luhn',function() {
     expect(number).toEqual(1230);
   });
 
-  xit("create other valid number",function() {
+  it("create other valid number",function() {
     var number = Luhn.create(873956);
     expect(number).toEqual(8739567);
   });
 
-  xit("create yet another valid number",function() {
+  it("create yet another valid number",function() {
     var number = Luhn.create(837263756);
     expect(number).toEqual(8372637564);
   });
