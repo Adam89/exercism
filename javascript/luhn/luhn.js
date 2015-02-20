@@ -1,50 +1,60 @@
 var Luhn = function(number) {
 
-  this.checkDigit = function(){
-    stringify_number = number.toString()
-    return +stringify_number[stringify_number.length - 1];
-  }();
-
- var addends = this.addends = function(){
-    digits = number.toString().split("").reverse();
+  var calculateAddends = function(){
+    var digits = number.toString().split("").reverse();
 
     for(var i = 0; i < digits.length; i++) {
       if(i % 2 === 0) {
         digits[i] = +digits[i];
+      } else if(timesTwo(digits[i]) > 9) {
+        digits[i] = timesTwo(digits[i]) - 9;
       } else {
-        new_digit = +digits[i] * 2;
-        if(new_digit > 9) { new_digit = new_digit  - 9; }
-        digits[i] = new_digit;
+        digits[i] = timesTwo(digits[i]);
       }
     }
 
     return digits.reverse();
-  }();
+  };
 
+  var timesTwo = function(letter) {
+    return +letter * 2;
+  };
 
-  var checksum = this.checksum = function(){
+  var calculateChecksum = function(){
     var accumulator = 0;
+    var addends = calculateAddends();
 
     for(var i = 0; i < addends.length; i++) {
       accumulator += addends[i];
     }
 
     return accumulator;
-  }();
+  };
 
- this.valid = function(){
+  var calculateValidity = function(){
+    var checksum = calculateChecksum();
+
     if (checksum % 10 === 0) {
       return true;
     } else {
       return false;
     }
- }();
+  };
 
+
+  this.checkDigit = function(){
+    var stringify_number = number.toString()
+    return +stringify_number[stringify_number.length - 1];
+  }();
+
+  this.addends = calculateAddends();
+  this.checksum = calculateChecksum();
+  this.valid = calculateValidity()
 }
 
 Luhn.create = function(number){
-  new_number = number.toString() + '0';
-  luhn = new Luhn(+new_number);
+  var new_number = number.toString() + '0';
+  var luhn = new Luhn(+new_number);
 
   if (luhn.checksum % 10 === 0) {
     return +new_number;
@@ -52,7 +62,6 @@ Luhn.create = function(number){
     new_number = number.toString() + (10 - luhn.checksum % 10).toString();
     return +new_number;
   }
-
 };
 
 module.exports = Luhn;
